@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Giraffe Club — Est. 1924</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&family=Limelight&family=Cinzel:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0e0b06; --cream:#f3e9cf; --brass:#c79a3a; --brass-bright:#f0c660;
+    --green:#13402e; --green-deep:#0a2a1d; --oxblood:#5e1414;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ height:100%; }
+  body{
+    font-family:'Cormorant Garamond',serif; color:var(--cream);
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(199,154,58,.12), transparent 60%),
+      repeating-linear-gradient(90deg, transparent 0 38px, rgba(0,0,0,.12) 38px 40px),
+      linear-gradient(160deg,var(--green) 0%, var(--green-deep) 60%, #06170f 100%);
+    min-height:100%; display:flex; align-items:center; justify-content:center;
+    padding:40px 20px; overflow-x:hidden;
+  }
+  .frame{
+    position:relative; width:min(560px,94vw); text-align:center;
+    padding:54px 40px 46px;
+    border:2px solid var(--brass);
+    box-shadow:0 0 0 8px var(--green-deep), 0 0 0 10px var(--brass),
+               0 30px 80px rgba(0,0,0,.6);
+    background:
+      radial-gradient(ellipse at 50% 18%, rgba(199,154,58,.10), transparent 55%),
+      linear-gradient(180deg, rgba(8,20,14,.6), rgba(6,14,10,.85));
+  }
+  /* deco corner flourishes */
+  .frame::before,.frame::after{
+    content:""; position:absolute; width:34px; height:34px;
+    border:2px solid var(--brass-bright); }
+  .frame::before{ top:10px; left:10px; border-right:none; border-bottom:none; }
+  .frame::after{ bottom:10px; right:10px; border-left:none; border-top:none; }
+
+  .est{ font-family:'Cinzel',serif; letter-spacing:.42em; font-size:12px;
+    color:var(--brass-bright); text-indent:.42em; margin-bottom:14px; }
+  h1{ font-family:'Limelight',display; font-weight:400; line-height:.95;
+    font-size:clamp(40px,9vw,68px); color:var(--cream); letter-spacing:.02em;
+    text-shadow:0 2px 0 #000, 0 0 26px rgba(199,154,58,.25); }
+  .rule{ display:flex; align-items:center; gap:14px; margin:22px auto 8px; width:80%; color:var(--brass); }
+  .rule::before,.rule::after{ content:""; flex:1; height:1px; background:linear-gradient(90deg,transparent,var(--brass),transparent); }
+  .rule span{ font-family:'Cinzel',serif; font-size:13px; letter-spacing:.3em; }
+  .blurb{ font-size:20px; line-height:1.5; color:#e6dcc0; margin:18px auto 30px; max-width:42ch;
+    font-style:italic; }
+  .giraffe{ font-size:54px; filter:drop-shadow(0 4px 10px rgba(0,0,0,.5)); margin-bottom:6px; }
+
+  /* steps / gate */
+  .gate{ background:rgba(6,16,11,.7); border:1px solid rgba(199,154,58,.4);
+    border-radius:4px; padding:22px 22px 24px; margin-bottom:22px; }
+  .gate h2{ font-family:'Cinzel',serif; font-size:14px; letter-spacing:.22em;
+    color:var(--brass-bright); margin-bottom:14px; }
+  .btn{ display:inline-flex; align-items:center; justify-content:center; gap:10px;
+    font-family:'Cinzel',serif; letter-spacing:.12em; cursor:pointer; border:none;
+    padding:15px 30px; font-size:15px; border-radius:3px; transition:.18s transform,.18s box-shadow,.18s filter; }
+  .btn:active{ transform:translateY(1px); }
+  .btn-x{ background:#0d0d0d; color:#fff; border:1px solid #2b2b2b; width:100%; }
+  .btn-x:hover{ filter:brightness(1.25); box-shadow:0 0 18px rgba(255,255,255,.12); }
+  .btn-play{
+    background:linear-gradient(180deg,var(--brass-bright),var(--brass));
+    color:#241a06; font-weight:700; width:100%; margin-top:4px;
+    box-shadow:0 6px 0 #7a5e22, 0 10px 24px rgba(0,0,0,.4);
+  }
+  .btn-play:hover{ box-shadow:0 6px 0 #7a5e22, 0 0 26px rgba(240,198,96,.5); }
+  .btn-play:disabled, .btn-play[aria-disabled="true"]{
+    filter:grayscale(.7) brightness(.6); cursor:not-allowed; box-shadow:none; }
+  .note{ font-size:13px; color:#a99b78; margin-top:14px; font-style:italic; }
+  .status{ font-size:13px; letter-spacing:.05em; margin-top:10px; min-height:18px; color:var(--brass-bright); }
+  .placeholder-tag{ display:inline-block; font-family:'Cinzel',serif; font-size:9px;
+    letter-spacing:.18em; color:#7a8f80; border:1px dashed #44574c; border-radius:3px;
+    padding:3px 7px; margin-top:6px; }
+  .badge{ position:fixed; bottom:12px; right:14px; font-family:'Cinzel',serif;
+    font-size:10px; letter-spacing:.15em; color:#7a8f80; opacity:.7; }
+  a.badge-link{ color:var(--brass-bright); text-decoration:none; }
+</style>
+
+<div class="frame">
+  <div class="giraffe">🦒</div>
+  <div class="est">Established · 1924</div>
+  <h1>The&nbsp;Giraffe&nbsp;Club</h1>
+  <div class="rule"><span>Members Only</span></div>
+  <p class="blurb">An invitation is not given. It is <em>earned</em>. The elevator to the clubhouse is stuck between floors. Get it moving, and the door to Phase Two opens.</p>
+
+  <div class="gate" id="gate">
+    <h2>Step 1 · Verify Membership</h2>
+    <button class="btn btn-x" id="connectBtn" onclick="fakeConnect()">𝕏 — Connect to Enter</button>
+    <div class="placeholder-tag">PLACEHOLDER · real X auth wired later</div>
+    <div class="status" id="status"></div>
+  </div>
+
+  <button class="btn btn-play" id="playBtn" aria-disabled="true" onclick="play()">Enter the Elevator ▸</button>
+  <p class="note">Best played on desktop or phone in landscape.</p>
+</div>
+
+<div class="badge">built with <a class="badge-link" href="https://casefoster.ai" target="_blank">casefoster.ai</a></div>
+
+<script>
+  let connected=false;
+  function fakeConnect(){
+    const s=document.getElementById('status');
+    const c=document.getElementById('connectBtn');
+    c.textContent='Connecting…';
+    setTimeout(()=>{
+      connected=true;
+      c.textContent='𝕏 — Connected ✓';
+      c.style.filter='brightness(1)';
+      c.style.borderColor='var(--brass)';
+      s.textContent='Welcome, @member. You may enter.';
+      const p=document.getElementById('playBtn');
+      p.setAttribute('aria-disabled','false');
+    }, 700);
+  }
+  function play(){
+    if(!connected){
+      document.getElementById('status').textContent='Connect your account first.';
+      return;
+    }
+    window.location.href='game.html';
+  }
+</script>
+</html>
