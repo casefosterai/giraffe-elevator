@@ -20,19 +20,19 @@
   .nav:hover{ color:#ffd54a; }
   .nav.lr{ top:34%; height:32%; width:9%; font-size:60px; }
   .nav.ud{ left:34%; width:32%; height:9%; font-size:46px; }
-  .nav.ud.down{ bottom:86px; }
+  .nav.ud.down{ bottom:98px; }
   .nav.ud.up{ top:0; }
   .navback{ position:absolute; left:14px; top:14px; z-index:80; cursor:pointer;
     background:rgba(0,0,0,.55); border:1px solid #b8932f; color:#f0e6d2;
     padding:8px 14px; border-radius:6px; font-size:15px; }
   .navback:hover{ background:rgba(40,30,15,.85); }
-  #inv{ position:absolute; left:0; right:0; bottom:0; height:84px; z-index:70;
+  #inv{ position:absolute; left:0; right:0; bottom:0; height:96px; z-index:70;
     background:linear-gradient(180deg,rgba(20,15,8,0),rgba(20,15,8,.85) 40%);
-    display:flex; align-items:center; gap:10px; padding:0 16px 8px; pointer-events:none; }
-  .slot{ width:64px; height:64px; border:2px solid #7a5e22; border-radius:8px;
+    display:flex; align-items:center; gap:10px; padding:0 16px 10px; pointer-events:none; }
+  .slot{ width:74px; height:74px; border:2px solid #7a5e22; border-radius:8px;
     background:rgba(0,0,0,.35); display:flex; align-items:center; justify-content:center;
     cursor:pointer; position:relative; pointer-events:auto; }
-  .slot img{ position:static; width:90%; height:90%; object-fit:contain; pointer-events:none; }
+  .slot img{ position:static; width:96%; height:96%; object-fit:contain; pointer-events:none; }
   .slot.selected{ border-color:#ffd54a; box-shadow:0 0 14px #ffd54a; background:rgba(80,60,15,.5); }
   .slot .lbl{ position:absolute; bottom:-2px; left:0; right:0; text-align:center;
     font-size:9px; color:#d8c79a; pointer-events:none; }
@@ -412,13 +412,13 @@ function mkNav(ch,kind,dir,target){
 function renderInv(){
   invEl.innerHTML='';
   const items=[];
-  if(S.has.key) items.push({id:'key', file:'floor__key_inventory.png', label:'Key'});
-  if(S.has.bluekey) items.push({id:'bluekey', file:'letter_2__key_inventory.png', label:'Blue Key'});
-  if(S.has.telescope) items.push({id:'telescope', file:'floor__telescope.png', label:'Telescope'});
-  if(S.has.screwdriver) items.push({id:'screwdriver', file:'floor__screwdriver_inv.png', label:'Screwdriver'});
-  if(S.has.envelope) items.push({id:'envelope', file:'ceiling__inventory_letter.png', label:'Envelope'});
-  if(S.has.card) items.push({id:'card', file:'letter_2__letter_note_inventory.png', label:'Card'});
-  if(S.has.directory) items.push({id:'directory', file:'directory__directory.png', label:'Directory'});
+  if(S.has.key) items.push({id:'key', file:'icon_key.png', label:'Key'});
+  if(S.has.bluekey) items.push({id:'bluekey', file:'icon_bluekey.png', label:'Blue Key'});
+  if(S.has.telescope) items.push({id:'telescope', file:'icon_telescope.png', label:'Telescope'});
+  if(S.has.screwdriver) items.push({id:'screwdriver', file:'icon_screwdriver.png', label:'Screwdriver'});
+  if(S.has.envelope) items.push({id:'envelope', file:'icon_envelope.png', label:'Envelope'});
+  if(S.has.card) items.push({id:'card', file:'icon_card.png', label:'Card'});
+  if(S.has.directory) items.push({id:'directory', file:'icon_directory.png', label:'Directory'});
   items.forEach(it=>{
     const s=document.createElement('div'); s.className='slot'+(S.using===it.id?' selected':'');
     if(it.file){ const im=document.createElement('img'); im.src=IMG+it.file; s.appendChild(im); }
@@ -583,9 +583,8 @@ function winGame(){ sfx.win(); document.getElementById('win').style.display='fle
 (function preloadAll(){
   const files=new Set();
   Object.values(SCENES).forEach(sc=>sc.layers.forEach(L=>files.add(L.f)));
-  ['floor__key_inventory.png','letter_2__key_inventory.png','floor__telescope.png',
-   'floor__screwdriver_inv.png','ceiling__inventory_letter.png',
-   'letter_2__letter_note_inventory.png','directory__directory.png'].forEach(f=>files.add(f));
+  ['icon_key.png','icon_bluekey.png','icon_telescope.png','icon_screwdriver.png',
+   'icon_envelope.png','icon_card.png','icon_directory.png'].forEach(f=>files.add(f));
   files.forEach(f=>{
     const im=new Image();
     im.onload=()=>{ try{
