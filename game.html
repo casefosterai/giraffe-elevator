@@ -238,21 +238,21 @@ const SCENES={
     layers:[
       {f:'floor__background_1.png'},
       // torn carpet corner: click to peel it back and reveal the key underneath
-      {f:'floor__rug_unpeeled.png', when:()=>!S.rugPeeled, click:()=>{ S.rugPeeled=true; sfx.click(); toast('You lift the torn corner of the carpet. There’s a <b>key</b> hidden underneath.'); render(); }},
+      {f:'floor__rug_unpeeled.png', when:()=>!S.rugPeeled, click:()=>{ S.rugPeeled=true; sfx.click(); render(); }},
       {f:'floor__rug_peeled.png', when:()=>S.rugPeeled},
       // key only visible/clickable once the carpet is peeled
-      {f:'floor__key_ground.png', when:()=>S.rugPeeled && !S.pickedKeyFromFloor, click:()=>{ S.pickedKeyFromFloor=true; S.has.key=true; sfx.pickup(); toast('You take the small brass <b>key</b>.'); render(); }},
-      {f:'floor__telescope.png', when:()=>!S.pickedTelescope, click:()=>{ S.pickedTelescope=true; S.has.telescope=true; sfx.pickup(); toast('You picked up a <b>telescope</b>.'); render(); }},
+      {f:'floor__key_ground.png', when:()=>S.rugPeeled && !S.pickedKeyFromFloor, click:()=>{ S.pickedKeyFromFloor=true; S.has.key=true; sfx.pickup(); render(); }},
+      {f:'floor__telescope.png', when:()=>!S.pickedTelescope, click:()=>{ S.pickedTelescope=true; S.has.telescope=true; sfx.pickup(); render(); }},
       // directory card: pick it up into inventory
-      {f:'floor__directory.png', when:()=>!S.pickedDirectory, click:()=>{ S.pickedDirectory=true; S.has.directory=true; sfx.pickup(); toast('You pick up a laminated <b>directory</b> card. Tap it in your inventory to read it.'); render(); }},
+      {f:'floor__directory.png', when:()=>!S.pickedDirectory, click:()=>{ S.pickedDirectory=true; S.has.directory=true; sfx.pickup(); render(); }},
       // screwdriver dropped through the chute, lands on the floor
-      {f:'floor__screwdriver.png', when:()=>S.screwdriverOnFloor && !S.has.screwdriver, click:()=>{ S.has.screwdriver=true; sfx.pickup(); toast('You pick up the <b>screwdriver</b>.'); render(); }},
+      {f:'floor__screwdriver.png', when:()=>S.screwdriverOnFloor && !S.has.screwdriver, click:()=>{ S.has.screwdriver=true; sfx.pickup(); render(); }},
     ],
   },
   left:{ nav:{ left:'back', right:'front' },
     layers:[
       {f:'left_wall__left_wall.png'},
-      {f:'left_wall__poster.png', click:()=>{ S._posterSeen=true; toast('A “Fren Party” poster. The animals are numbered: wolf <b>3</b>, bear <b>7</b>, salmon <b>2</b>.<br>A sticky note: <i>“Tell them Justin called.”</i>',4800); }},
+      {f:'left_wall__poster.png', click:()=>{ S._posterSeen=true; toast('A poster for the Fren Party.'); }},
       {f:'left_wall__tell_them_justin_called.png'},
     ],
   },
@@ -261,18 +261,16 @@ const SCENES={
       {f:'back_wall__background_1.png'},
       {f:'back_wall__window.png', click:()=>{
         if(S.using==='telescope'){ clearUsing(); go('telescope'); }
-        else if(S.has.telescope){ toast('Too dark to read the statue from here. Maybe with the <b>telescope</b>.'); }
-        else { toast('A barred window onto the garden. There’s a statue, but it’s too far to read.'); }
+        else { toast('A window looking out on the gardens.'); }
       }},
       {f:'back_wall__emergency_chute.png', click:()=>{
-        if(S.screwdriverOnFloor && !S.has.screwdriver){ toast('The chute door swings — whatever dropped through it landed on the floor below.'); }
-        else { toast('An emergency supply chute leading down to the floor.'); }
+        toast('An emergency supply chute leading down to the floor.');
       }},
     ],
   },
   telescope:{ back:'back',
     layers:[
-      {f:'back_wall_telescope__background_1.png', click:()=>{ S.statueSeen=true; toast('Through the telescope: a giraffe statue — “The Giraffe Club, Est. 1924.” Graffitied on the base: <b>42</b>.',4400); }},
+      {f:'back_wall_telescope__background_1.png', click:()=>{ S.statueSeen=true; }},
     ],
   },
   right:{ nav:{ left:'front', right:'back' },
@@ -289,13 +287,12 @@ const SCENES={
       {f:'right_wall_zoomed__painting.png', when:()=>!S.safeUnlocked && !S.safeOpen},
       {f:'right_wall_zoomed__frame_piece.png', when:()=>!S.framePieceOff && !S.safeUnlocked && !S.safeOpen, click:()=>{
         S.framePieceOff=true; S.keyholeRevealed=true; sfx.click();
-        toast('You pry off the loose, discolored piece of frame. Behind it: a <b>keyhole</b>.'); render();
+        render();
       }},
       {f:'right_wall_zoomed__keyhole.png', when:()=>S.keyholeRevealed && !S.safeUnlocked && !S.safeOpen, click:()=>{
-        if(S.using==='bluekey'){ S.safeUnlocked=true; clearUsing(); sfx.key(); toast('The blue key turns. The painting swings aside — a <b>safe</b> with a keypad.'); render(); }
-        else if(S.using==='key'){ sfx.bad(); toast('The gray key doesn’t fit this lock.'); }
-        else if(S.has.bluekey){ toast('A keyhole. Try the <b>blue key</b>.'); }
-        else { toast('A keyhole. You need the right key — the gray one doesn’t fit.'); }
+        if(S.using==='bluekey'){ S.safeUnlocked=true; clearUsing(); sfx.key(); toast('The blue key turns. The painting swings aside revealing a safe.'); render(); }
+        else if(S.using==='key'){ sfx.bad(); toast('That key doesn’t fit this lock.'); }
+        else { toast('A keyhole.'); }
       }},
       {f:'right_wall_zoomed__safe_closed.png', when:()=>S.safeUnlocked && !S.safeOpen},
       {f:'right_wall_zoomed__pin_pad.png', when:()=>S.safeUnlocked && !S.safeOpen},
@@ -336,7 +333,7 @@ const SCENES={
       {f:'letter_2__background_1.png'},
       // closed envelope until opened
       {f:'letter_2__envelope.png', when:()=>!S.envelopeOpened, click:()=>{
-        S.envelopeOpened=true; sfx.pickup(); toast('You open the envelope. Inside: a <b>blue key</b> and a card. Tap each to take it.',4200); render();
+        S.envelopeOpened=true; sfx.pickup(); render();
       }},
       // opened: show card + blue key; click each to collect
       {f:'letter_2__letter_note.png', when:()=>S.envelopeOpened && !S.has.card, click:()=>{ takeFromEnvelope('card'); }},
@@ -349,13 +346,12 @@ const SCENES={
       {f:'ceiling__elevator_and_decoration.png'},
       // grate (or grate-gone) sits under the screws
       {f:'ceiling__ceiling_grate.png', when:()=>!S.grateOff, click:()=>{
-        if(S.screws.tl&&S.screws.tr&&S.screws.bl&&S.screws.br){ S.grateOff=true; sfx.good(); toast('The grate slides aside. An envelope is tucked inside.'); render(); }
+        if(S.screws.tl&&S.screws.tr&&S.screws.bl&&S.screws.br){ S.grateOff=true; sfx.good(); render(); }
         else { toast('The grate is still screwed down at the corners.'); }
       }},
       {f:'ceiling__grate_gone.png', when:()=>S.grateOff},
       {f:'ceiling__letter_in_grate.png', when:()=>S.grateOff && !S.ventLooted, click:()=>{
-        S.ventLooted=true; S.has.envelope=true; sfx.pickup();
-        toast('You pull a sealed <b>envelope</b> out of the vent. Open it from your inventory.',4000); render();
+        S.ventLooted=true; S.has.envelope=true; sfx.pickup(); render();
       }},
       // screws on TOP of the grate so they're visible & clickable
       {f:'ceiling__tl_unscrewed.png', when:()=>S.screws.tl&&!S.grateOff},
@@ -463,31 +459,29 @@ function submitName(){
   }
 }
 document.getElementById('nameOk').onclick=submitName;
-document.getElementById('nameCancel').onclick=()=>{ closeName(); toast('You hang up.',1500); };
+document.getElementById('nameCancel').onclick=()=>{ closeName(); };
 nameInput.addEventListener('keydown',(e)=>{ if(e.key==='Enter'){ submitName(); } if(e.key==='Escape'){ closeName(); } });
 
 
 function takeFromEnvelope(what){
-  if(what==='card'){ S.has.card=true; sfx.pickup(); toast('You take the <b>card</b>.'); }
-  if(what==='bluekey'){ S.has.bluekey=true; sfx.pickup(); toast('You take the <b>blue key</b>.'); }
+  if(what==='card'){ S.has.card=true; sfx.pickup(); }
+  if(what==='bluekey'){ S.has.bluekey=true; sfx.pickup(); }
   // once both are out, the envelope is empty — remove it and leave the page
   if(S.has.card && S.has.bluekey){
     S.has.envelope=false;
     const back=S._returnTo||'ceiling';
-    toast('The envelope is empty now.',1800);
-    setTimeout(()=>{ go(back); }, 650);
+    setTimeout(()=>{ go(back); }, 400);
   }
   render();
 }
 
 function useKeyhole(){
   if(S.adminMode){ toast('The keypad is already powered on.'); return; }
-  if(S.using==='key'){ S.adminMode=true; clearUsing(); sfx.key(); toast('You turn the key. The keypad lights up — <b>admin mode</b>. You can place calls now.'); render(); }
-  else if(S.using==='bluekey'){ sfx.bad(); toast('The blue key doesn’t fit this lock.'); }
-  else if(S.has.key){ toast('There’s a keyhole here. Try the <b>key</b>.'); }
-  else { toast('The keypad is dead. There’s a keyhole — you need a key.'); }
+  if(S.using==='key'){ S.adminMode=true; clearUsing(); sfx.key(); toast('You turn the key. You can place calls now.'); render(); }
+  else if(S.using==='bluekey'){ sfx.bad(); toast('That key doesn’t fit this lock.'); }
+  else { toast('A keyhole.'); }
 }
-function phoneDigit(d){ if(!S.adminMode){ sfx.bad(); toast('The keypad is dead. Power it on first.'); return; } sfx.phone(); if(phoneBuf.length<5){ phoneBuf+=d; updatePhoneReadout(); } }
+function phoneDigit(d){ if(!S.adminMode){ sfx.bad(); toast('The keypad is dead.'); return; } sfx.phone(); if(phoneBuf.length<5){ phoneBuf+=d; updatePhoneReadout(); } }
 function phoneAction(a){ if(!S.adminMode){ sfx.bad(); toast('The keypad is dead.'); return; }
   if(a==='clear'){ phoneBuf=''; dialState=null; updatePhoneReadout(); sfx.click(); }
   else if(a==='call'){ placeCall(phoneBuf); } }
@@ -520,7 +514,7 @@ function placeCall(raw){
     updatePhoneReadout(); return;
   }
   if(num==='505'){
-    if(S.knowsCoatNum){ toast('“Your claim number is <b>57</b>. Combine it as the card says.”',3600); }
+    if(S.knowsCoatNum){ toast('“Your claim number is <b>57</b>.”',3600); }
     else { askName(); }   // popup: who referred you?
     phoneBuf=''; updatePhoneReadout(); return;
   }
@@ -558,20 +552,18 @@ function safeDigit(d){
   if(S.safeOpen) return; sfx.phone();
   if(safeBuf.length<4) safeBuf+=d; updateSafeReadout();
   if(safeBuf.length===4){
-    if(safeBuf===ANS.safeCombo){ setTimeout(()=>{ S.safeOpen=true; sfx.good(); safeReadout.style.display='none'; toast('The safe clicks open. Inside: a single <b>red button</b>.'); render(); },250); }
+    if(safeBuf===ANS.safeCombo){ setTimeout(()=>{ S.safeOpen=true; sfx.good(); safeReadout.style.display='none'; toast('The safe clicks open.'); render(); },250); }
     else { setTimeout(()=>{ sfx.bad(); safeBuf=''; updateSafeReadout(); toast('Wrong combination.'); },250); }
   }
 }
 
 function screw(which){
   if(S.using!=='screwdriver'){
-    if(S.has.screwdriver) toast('A screw. Select the <b>screwdriver</b> to remove it.');
-    else toast('The grate is held by four screws. You’ll need a screwdriver.');
+    toast('The grate is held by four screws.');
     return;
   }
   S.screws[which]=true; sfx.click();
-  const left=['tl','tr','bl','br'].filter(k=>!S.screws[k]).length;
-  toast(left>0?`Screw removed. ${left} to go.`:'All four screws are out. Click the grate to remove it.',1800);
+  toast('Screw removed.',1500);
   render();
 }
 
